@@ -16,7 +16,15 @@ class GameBoard:
 			out = out + '\n'
 		return out
 
-	def getSquare(self, x, y):
+	def getSquare(self, square):
+		square = square - 1
+		if(square > 8 or square < 0):
+			raise ValueError("Square number must be between 1 and 9")
+		x = (int)(square/3)
+		y = (int)(square%3)
+		return self.getSquareCoordinates(x, y)
+
+	def getSquareCoordinates(self, x, y):
 		if(x > 2 or x < 0 or y > 2 or y < 0):
 			raise ValueError("Coordiantes are not on the board")
 
@@ -24,6 +32,8 @@ class GameBoard:
 
 	def setSquare(self, square, player):
 		square = square - 1
+		if(square > 8 or square < 0):
+			raise ValueError("Square number must be between 1 and 9")
 		x = (int)(square/3)
 		y = (int)(square%3)
 		self.setSquareCoordinates(x, y, player)
@@ -67,6 +77,15 @@ class GameBoard:
 			if(self.board[1][1]==top and self.board[0][2]==top):
 				return top
 
+		""" Check for existance of a tie """
+		isTie = True
+		for i in range(3):
+			for j in range(3):
+				if(self.board[i][j]=='.'):
+					isTie = False
+		if(isTie):
+			return 'T'
+			
 		""" No win, return . """
 		return '.'
 
