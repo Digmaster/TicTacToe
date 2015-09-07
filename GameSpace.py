@@ -6,6 +6,7 @@ import threading
 from copy import deepcopy
 
 class GameSpace:
+	moveStatement = "Move #{}: Player {} plays {}"
 	resourcesBase = "resources/"
 	xChar = resourcesBase+"xChar.png"
 	oChar = resourcesBase+"oChar.png"
@@ -21,6 +22,8 @@ class GameSpace:
 		self.board = board
 
 		self.moveNum = 0
+		self.agent1 = None
+		self.agent2 = None
 
 		if(numAgents >= 1):
 			self.agent1 = Agent(board)
@@ -29,6 +32,7 @@ class GameSpace:
 
 		self.aiJob = False
 		self.input = ""
+		self.aiThread = None
 
 	def update_screen(self):
 		self.screen.fill(self.black)
@@ -58,30 +62,31 @@ class GameSpace:
 	def main(self):
 		while(self.board.testWin() is '.'):
 			self.update_screen()
+			pygame.event.get() #Keeps the screen alive, otherwise it times out
 			player = (self.moveNum%2) + 1
 			move = None
 			if(player == 1):
 				if(self.agent1 != None):
 					if(self.aiJob==False and self.input==""):
 						self.aiJob=True
-						t = threading.Thread(target=self.RunAI, args=(self.agent1, deepcopy(self.board), 'X'))
-						t.start()
+						self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent1, deepcopy(self.board), 'X'))
+						self.aiThread.start()
 					elif(self.aiJob==False):
 						move = self.input
 						self.input = ""
 				else:
-					move = input(moveStatement.format(moveNum, player, ""))
+					move = input(self.moveStatement.format(self.moveNum, player, ""))
 			else:
 				if(self.agent2 != None):
 					if(self.aiJob==False and self.input==""):
 						self.aiJob=True
-						t = threading.Thread(target=self.RunAI, args=(self.agent2, deepcopy(self.board), 'O'))
-						t.start()
+						self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent2, deepcopy(self.board), 'O'))
+						self.aiThread.start()
 					elif(self.aiJob==False):
 						move = self.input
 						self.input = ""
 				else:
-					move = input(moveStatement.format(moveNum, player, ""))
+					move = input(self.moveStatement.format(self.moveNum, player, ""))
 
 			try:
 				if(move!=None):
