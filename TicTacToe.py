@@ -12,6 +12,7 @@ agent1 = None
 agent2 = None
 
 board = GameBoard()
+print board
 
 # if __name__ == '__main__':
 # 	gs = GameSpace()
@@ -22,6 +23,8 @@ gs = GameSpace(board, agents)
 gs.main()
 
 if(board.testWin()=='T'):
-	print "The game ends in a tie!"
+	print "The game is a tie."
+elif(board.testWin()!='.'):
+	print "Player", '1' if board.testWin()=='X' else '2', "has won."
 else:
-	print "Player", board.testWin(), "Wins!"
+	print "Game was ended before it completed."

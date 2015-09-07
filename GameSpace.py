@@ -60,39 +60,48 @@ class GameSpace:
 
 
 	def main(self):
-		while(self.board.testWin() is '.'):
-			self.update_screen()
-			pygame.event.get() #Keeps the screen alive, otherwise it times out
-			player = (self.moveNum%2) + 1
-			move = None
-			if(player == 1):
-				if(self.agent1 != None):
-					if(self.aiJob==False and self.input==""):
-						self.aiJob=True
-						self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent1, deepcopy(self.board), 'X'))
-						self.aiThread.start()
-					elif(self.aiJob==False):
-						move = self.input
-						self.input = ""
+		try:
+			while(self.board.testWin() is '.'):
+				self.update_screen()
+				pygame.event.get() #Keeps the screen alive, otherwise it times out
+				player = (self.moveNum%2) + 1
+				move = None
+				if(player == 1):
+					if(self.agent1 != None):
+						if(self.aiJob==False and self.input==""):
+							self.aiJob=True
+							self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent1, deepcopy(self.board), 'X'))
+							self.aiThread.start()
+						elif(self.aiJob==False):
+							move = self.input
+							self.input = ""
+							print self.moveStatement.format(self.moveNum, player, move)
+					else:
+						move = input(self.moveStatement.format(self.moveNum, player, ""))
 				else:
-					move = input(self.moveStatement.format(self.moveNum, player, ""))
-			else:
-				if(self.agent2 != None):
-					if(self.aiJob==False and self.input==""):
-						self.aiJob=True
-						self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent2, deepcopy(self.board), 'O'))
-						self.aiThread.start()
-					elif(self.aiJob==False):
-						move = self.input
-						self.input = ""
-				else:
-					move = input(self.moveStatement.format(self.moveNum, player, ""))
+					if(self.agent2 != None):
+						if(self.aiJob==False and self.input==""):
+							self.aiJob=True
+							self.aiThread = threading.Thread(target=self.RunAI, args=(self.agent2, deepcopy(self.board), 'O'))
+							self.aiThread.start()
+						elif(self.aiJob==False):
+							move = self.input
+							self.input = ""
+							self.moveStatement.format(self.moveNum, player, move)
+					else:
+						move = input(self.moveStatement.format(self.moveNum, player, ""))
 
-			try:
-				if(move!=None):
-					self.board.setSquare(move, 'X' if player==1 else 'O')
-					self.moveNum = self.moveNum+1
-			except ValueError as e:
-				print e
-		self.update_screen();
+				try:
+					if(move!=None):
+						self.board.setSquare(move, 'X' if player==1 else 'O')
+						self.moveNum = self.moveNum+1
+						print self.board
+				except ValueError as e:
+					print e
+			self.update_screen();
+		except KeyboardInterrupt:
+			if(self.aiThread != None):
+				print "Kill command received"
+				print "Waiting for AI thread to terminate"
+				self.aiThread.join()
 		
