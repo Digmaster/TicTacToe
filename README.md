@@ -13,8 +13,9 @@ The first prompt asks for the number of AI agents to play against. The options a
 2: Two AI agents will play against eachother
 
 To play a move at the prompt, you must give a number between 1 and 9. These correspond to the following tiles
-| | | |
-|-|-|-|
+
 |1|2|3|
+
 |4|5|6|
+
 |7|8|9|
