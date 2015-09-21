@@ -4,24 +4,18 @@ import pygame
 from pygame.locals import *
 from GameSpace import GameSpace
 
-moveStatement = "Move #{}: Player {} plays {}"
-DESIRED_FPS = 60.0 # 60 frames per second
-
+# Get the number of agents
 agents = input("Enter Choice (1 for single agent 2 for dual agents): ")
-agent1 = None
-agent2 = None
 
+# Create the game board
 board = GameBoard()
 print board
 
-# if __name__ == '__main__':
-# 	gs = GameSpace()
-# 	tick = LoopingCall(gs.main)
-# 	tick.start(1.0 / DESIRED_FPS)
-
+#Create the game spcae and run the game
 gs = GameSpace(board, agents)
 gs.main()
 
+#Check the status of the board and report on it
 if(board.testWin()=='T'):
 	print "The game is a tie."
 elif(board.testWin()!='.'):
