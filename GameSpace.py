@@ -6,7 +6,7 @@ import threading
 from copy import deepcopy
 
 class GameSpace:
-	moveStatement = "Move #{}: Player {} plays {}"
+	moveStatement = "Move #{0}: Player {1} plays {2}"
 	resourcesBase = "resources/"
 	xChar = resourcesBase+"xChar.png"
 	oChar = resourcesBase+"oChar.png"

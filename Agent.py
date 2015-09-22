@@ -7,7 +7,7 @@ class DumbAgent:
 		self.board = board
 
 	def __str__(self):
-		return "Hi, Im dumb agent. I play randomly as player {}".format(self.player)
+		return "Hi, Im dumb agent. I play randomly as player {0}".format(self.player)
 
 	def getNextMove(self, player):
 		board = deepcopy(self.board)
@@ -28,7 +28,7 @@ class SmartAgent:
 
 
 	def __str__(self):
-		return "Hi, Im smart agent. I whatever move will net me the most points, or avail my enemy of points. I'm {}".format(self.player)
+		return "Hi, Im smart agent. I whatever move will net me the most points, or avail my enemy of points. I'm {0}".format(self.player)
 
 	def getNextMove(self, player):
 		moves = dict()
