@@ -6,7 +6,7 @@ import threading
 from copy import deepcopy
 
 class GameSpace:
-	moveStatement = "Move #{0}: Player {1} plays {2}"
+	moveStatement = "Move #{0}: enter choice for Player {1}: {2}"
 	resourcesBase = "resources/"
 	xChar = resourcesBase+"xChar.png"
 	oChar = resourcesBase+"oChar.png"
@@ -75,7 +75,7 @@ class GameSpace:
 						elif(self.aiJob==False):
 							move = self.input
 							self.input = ""
-							print self.moveStatement.format(self.moveNum, player, move)
+							print self.moveStatement.format(self.moveNum, player, move+1)
 					else:
 						move = input(self.moveStatement.format(self.moveNum, player, ""))
 				else:
@@ -87,7 +87,7 @@ class GameSpace:
 						elif(self.aiJob==False):
 							move = self.input
 							self.input = ""
-							self.moveStatement.format(self.moveNum, player, move)
+							self.moveStatement.format(self.moveNum, player, move+1)
 					else:
 						move = input(self.moveStatement.format(self.moveNum, player, ""))
 
@@ -101,6 +101,7 @@ class GameSpace:
 			self.update_screen();
 		except KeyboardInterrupt:
 			if(self.aiThread != None):
+				self.aiThread.signal = True
 				print "Kill command received"
 				print "Waiting for AI thread to terminate"
 				self.aiThread.join()
