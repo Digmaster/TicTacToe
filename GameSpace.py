@@ -26,9 +26,9 @@ class GameSpace:
 		self.agent2 = None
 
 		if(numAgents >= 1):
-			self.agent1 = Agent(board)
-		if(numAgents == 2):
 			self.agent2 = Agent(board)
+		if(numAgents == 2):
+			self.agent1 = Agent(board)
 
 		self.aiJob = False
 		self.input = ""

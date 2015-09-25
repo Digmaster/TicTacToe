@@ -19,3 +19,8 @@ To play a move at the prompt, you must give a number between 1 and 9. These corr
 |4|5|6|
 
 |7|8|9|
+
+# Creators
+Thomas Luppi
+John Lake
+Katie Weiss
