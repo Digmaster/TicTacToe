@@ -11,6 +11,7 @@ class GameSpace:
 	xChar = resourcesBase+"xChar.png"
 	oChar = resourcesBase+"oChar.png"
 	bChar = resourcesBase+"bChar.png"
+	grid =  resourcesBase+"grid.png"
 
 	def __init__(self, board, numAgents):
 		pygame.init()
@@ -52,6 +53,9 @@ class GameSpace:
 				rec.left = j*64
 
 				self.screen.blit(img, rec)
+		img = pygame.image.load(self.grid)
+		rec = img.get_rect()
+		self.screen.blit(img, rec)
 		pygame.display.update()
 
 	def RunAI(self, agent, board, player):
