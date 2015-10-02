@@ -84,7 +84,7 @@ class GameSpace:
 						elif(self.aiJob==False):
 							move = self.input
 							self.input = ""
-							print self.moveStatement.format(self.moveNum, player, move+1)
+							print self.moveStatement.format(self.moveNum, player, move)
 					else:
 						move = input(self.moveStatement.format(self.moveNum, player, ""))
 
@@ -98,7 +98,7 @@ class GameSpace:
 						elif(self.aiJob==False):
 							move = self.input
 							self.input = ""
-							print self.moveStatement.format(self.moveNum, player, move+1)
+							print self.moveStatement.format(self.moveNum, player, move)
 					else:
 						move = input(self.moveStatement.format(self.moveNum, player, ""))
 
