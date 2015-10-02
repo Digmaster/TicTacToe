@@ -13,6 +13,8 @@ class GameSpace:
 	bChar = resourcesBase+"bChar.png"
 	grid =  resourcesBase+"grid.png"
 
+	# Initialize the board,number of agents and threads
+
 	def __init__(self, board, numAgents):
 		pygame.init()
 
@@ -35,6 +37,7 @@ class GameSpace:
 		self.input = ""
 		self.aiThread = None
 
+	# update the tictactoe visualization screen
 	def update_screen(self):
 		self.screen.fill(self.black)
 		for i in range(3):
@@ -62,7 +65,7 @@ class GameSpace:
 		self.input = agent.getNextMove(player)
 		self.aiJob = False
 
-
+# MAIN section of game play
 	def main(self):
 		try:
 			while(self.board.testWin() is '.'):
@@ -70,6 +73,8 @@ class GameSpace:
 				pygame.event.get() #Keeps the screen alive, otherwise it times out
 				player = (self.moveNum%2) + 1
 				move = None
+
+				# For Player 1
 				if(player == 1):
 					if(self.agent1 != None):
 						if(self.aiJob==False and self.input==""):
@@ -82,6 +87,8 @@ class GameSpace:
 							print self.moveStatement.format(self.moveNum, player, move+1)
 					else:
 						move = input(self.moveStatement.format(self.moveNum, player, ""))
+
+				# For Player 2
 				else:
 					if(self.agent2 != None):
 						if(self.aiJob==False and self.input==""):

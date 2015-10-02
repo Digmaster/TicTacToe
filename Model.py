@@ -1,4 +1,4 @@
-
+# The model for the game board and a test to see if there is a winner in the current state
 
 class GameBoard:
 	"""  012
@@ -16,6 +16,7 @@ class GameBoard:
 			out = out + '\n'
 		return out
 
+	# taking the chosen move and converting it to grid coordinates
 	def getSquare(self, square):
 		square = square - 1
 		if(square > 8 or square < 0):
@@ -24,12 +25,14 @@ class GameBoard:
 		y = (int)(square%3)
 		return self.getSquareCoordinates(x, y)
 
+	# Make sure that coordinates are on the board
 	def getSquareCoordinates(self, x, y):
 		if(x > 2 or x < 0 or y > 2 or y < 0):
 			raise ValueError("Coordiantes are not on the board")
 
 		return self.board[x][y]
 
+	# Set the choosen move to the square
 	def setSquare(self, square, player):
 		square = square - 1
 		if(square > 8 or square < 0):
@@ -38,6 +41,7 @@ class GameBoard:
 		y = (int)(square%3)
 		self.setSquareCoordinates(x, y, player)
 
+	# Ensure the proper marker (X or O) is put onto the board
 	def setSquareCoordinates(self, x, y, player):
 		if(x > 2 or x < 0 or y > 2 or y < 0):
 			raise ValueError("Coordiantes are not on the board")
@@ -50,6 +54,7 @@ class GameBoard:
 
 		self.board[x][y] = player
 
+	# Test for a winning state or tie
 	def testWin(self):
 		""" Check horizontal wins """
 		for i in range(3):
